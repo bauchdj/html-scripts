@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+        function createBookSelectionEl(dict, title, book) {
+            const box = document.body.appendChild(document.createElement("div"));
+            Object.assign(box.style, {
+                backgroundColor: "#f5f5f5",
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                padding: "20px",
+                textAlign: "center",
+            });
+            const titleEl = box.appendChild(Object.assign(document.createElement("text"), {innerText: title}));
+            const select = box.appendChild(document.createElement("select"));
+            const chapter = box.appendChild(Object.assign(document.createElement("input"), {placeholder: "Chapter"}));
+            const paragraph = box.appendChild(Object.assign(document.createElement("input"), {placeholder: "Verse"}));
+            box.appendChild(Object.assign(document.createElement("button"), {onclick: openNewTab, innerText: "Click me!"}));
+
+            for (const key in dict) {
+                select.add(Object.assign(document.createElement("option"), {value: dict[key], text: key}));
+            }
+
+            box.querySelectorAll("*").forEach(child => {
+                var font = 25;
+                if (child == titleEl) { font = font + 7 }
+                Object.assign(child.style, {
+                    fontSize: `${font}px`,
+                    padding: "3px",
+                    margin: "3px",
+                });
+                if (child.tagName == "SELECT") {
+                    Object.assign(child.style, {
+                        textAlignLast: "center"
+                    });
+                }
+                if (child.tagName == "INPUT") {
+                    Object.assign(child.style, {
+                        maxWidth: "100px"
+                    });
+                }
+            });
+
+            function openNewTab() {
+                var subBook = select.value == "" ? "" : "/" + select.value;
+                var c = chapter.value == "" || select.value.slice(-2) == "/1" ? "" : "/" + chapter.value;
+                var ph = paragraph.value;
+                var ps = paragraph.value.split("-")[0];
+                const url = `https://www.churchofjesuschrist.org/study/scriptures/${book}${subBook}${c}?lang=eng&id=${ph}#p${ps}`;
+                window.open(url, "_blank").focus();
+                console.log(url);
+                console.log(book);
+                console.log(subBook);
+                console.log(c);
+                console.log(ph);
+                console.log(ps);
+            }
+
+            document.addEventListener("keydown", e => e.key === "Enter" && chapter.value && openNewTab());
+        }
+
+        const bofm = {
+            "--Select a Book--": "",
+            "1 Nephi": "1-ne",
+            "2 Nephi": "2-ne",
+            "Jacob": "jacob",
+            "Enos": "enos/1",
+            "Jarom": "jarom/1",
+            "Omni": "omni/1",
+            "Words of Mormon": "w-of-m/1",
+            "Mosiah": "mosiah",
+            "Alma": "alma",
+            "3 Nephi": "3-ne",
+            "4 Nephi": "4-ne/1",
+            "Helaman": "hel",
+            "Mormon": "morm",
+            "Ether": "ether",
+            "Moroni": "moro",
+        };
+
+        const nt = {
+            "--Select a Book--": "",
+            "Matthew": "matt",
+            "Mark": "mark",
+            "Luke": "luke",
+            "John": "john",
+            "Acts": "acts",
+            "Romans": "rom",
+            "1 Corinthians": "1-cor",
+            "2 Corinthians": "2-cor",
+            "Galations": "gal",
+            "Ephesians": "eph",
+            "Philippians": "philip",
+            "Colssians": "col",
+            "1 Thessalonians": "1-thes",
+            "2 Thessalonians": "2-thes",
+            "1 Timothy": "1-tim",
+            "2 Timothy": "2-tim",
+            "Titus": "titus",
+            "Philemon": "philem",
+            "Hebrews": "heb",
+            "James": "james",
+            "1 Peter": "1-pet",
+            "2 Peter": "2-pet",
+            "1 John": "1-jn",
+            "2 John": "2-jn",
+            "3 John": "3-jn",
+            "Jude": "jude",
+            "Revelation": "rev",
+        };
+
+        const ot = {
+            "--Select a Book--": "",
+            "Gensis": "gen",
+            "Exodus": "ex",
+            "Leviticus": "lev",
+            "Numbers": "num",
+            "Deuteronomy": "deut",
+            "Joshua": "josh",
+            "Judges": "judg",
+            "Ruth": "ruth",
+            "1 Samuel": "1-sam",
+            "2 Samuel": "2-sam",
+            "1 Kings": "1-kgs",
+            "2 Kings": "2-kgs",
+            "1 Chronicles": "1-chr",
+            "2 Chronicles": "2-chr",
+            "Ezra": "ezra",
+            "Nehemiah": "neh",
+            "Esther": "esth",
+            "Job": "job",
+            "Psalms": "ps",
+            "Proverbs": "prov",
+            "Eccelsiastes": "eccl",
+            "Song of Solomon": "song",
+            "Isaiah": "isa",
+            "Jeremiah": "jer",
+            "Lamentations": "lam",
+            "Ezekial": "ezek",
+            "Daniel": "dan",
+            "Hosea": "hosea",
+            "Joel": "joel",
+            "Amos": "amos",
+            "Obadiah": "obad",
+            "Jonah": "jonah",
+            "Micah": "micah",
+            "Nahum": "nahum",
+            "Habakkuk": "hab",
+            "Zephaniah": "zeph",
+            "Haggi": "hag",
+            "Zechariah": "zech",
+            "Malachi": "mal",
+        };
+
+        const dnc = {
+            "Section": "dc",
+            "Contents": "",
+            "Title Page": "title-page",
+            "Introduction": "introduction",
+        };
+
+        const pgp = {
+            "--Select a Book--": "",
+            "Moses": "moses",
+            "Abraham": "abr",
+            "JS - Matthew": "js-m",
+            "JS - History": "js-h",
+            "Articles of Faith": "a-of-f",
+        };
+
+        arr = [
+            [bofm, "Book of Mormon", "bofm"],
+            [nt, "New Testament", "nt"],
+            [ot, "Old Testament", "ot"],
+            [dnc, "Doctrine & Covenants", "dc-testament"],
+            [pgp, "Pearl of Great Price", "pgp"]
+        ];
+
+        arr.forEach(item => { createBookSelectionEl.apply(null, item) });
+    </script>
+  </body>
+</html>
+

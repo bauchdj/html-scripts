@@ -43,11 +43,11 @@
             });
 
             function openNewTab() {
-                var subBook = select.value == "" ? "" : "/" + select.value;
-                var c = chapter.value == "" || select.value.slice(-2) == "/1" ? "" : "/" + chapter.value;
-                var ph = paragraph.value;
-                var ps = paragraph.value.split("-")[0];
-                const url = `https://www.churchofjesuschrist.org/study/scriptures/${book}${subBook}${c}?lang=eng&id=${ph}#p${ps}`;
+                var subBook = select.value == "" ? "" : "/" + select.value; //book within a book of scriptue, Alma in The Book of Mormon
+                var c = chapter.value == "" || select.value.slice(-2) == "/1" ? "" : "/" + chapter.value; //chapter number
+                var ph = paragraph.value == "" ? "" : "&id=" + paragraph.value; //paragraphs to highlight
+                var ps = ph == "" ? ph : "#p" + paragraph.value.split("-")[0]; //paragraph to scroll to
+                const url = `https://www.churchofjesuschrist.org/study/scriptures/${book}${subBook}${c}?lang=eng${ph}${ps}`;
                 window.open(url, "_blank").focus();
                 console.log(url);
                 console.log(book);

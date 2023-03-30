@@ -2,7 +2,7 @@
 <html>
   <body>
     <script>
-        function createBookSelectionEl(dict, title, book) {
+        function createBookSelectionEl(obj, title, book) {
             const box = document.body.appendChild(document.createElement("div"));
             Object.assign(box.style, {
                 backgroundColor: "#f5f5f5",
@@ -18,8 +18,8 @@
             const paragraph = box.appendChild(Object.assign(document.createElement("input"), {placeholder: "Verse"}));
             box.appendChild(Object.assign(document.createElement("button"), {onclick: openNewTab, innerText: "Click me!"}));
 
-            for (const key in dict) {
-                select.add(Object.assign(document.createElement("option"), {value: dict[key], text: key}));
+            for (const key in obj) {
+                select.add(Object.assign(document.createElement("option"), {value: obj[key], text: key}));
             }
 
             box.querySelectorAll("*").forEach(child => {
